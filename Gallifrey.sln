@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallifrey.RestApi", "Gallifrey.RestApiController\Gallifrey.RestApi.csproj", "{F125B800-D1B9-4FB6-9E14-A7122BC51FFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallifrey.Persistence", "Gallifrey.Persistence\Gallifrey.Persistence.csproj", "{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalTest", "FunctonalTest\FunctionalTest.csproj", "{46DB4A61-6015-425B-B75E-2DA8171BE5C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallifrey.Infrastructure", "Gallifrey.Infrastructure\Gallifrey.Infrastructure.csproj", "{B19ED0C4-486D-45A0-AFD3-A3139100D6E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallifrey.SharedKernel", "Gallifrey.SharedKernel\Gallifrey.SharedKernel.csproj", "{10523B0E-AFFF-4B7E-8625-2A898F000313}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Architecture", "Architecture\Architecture.modelproj", "{BB41C9CB-AFB6-4E2E-8279-54C0DA4B1BD9}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://pedrohugorm.visualstudio.com/defaultcollection
+		SccProjectUniqueName0 = Gallifrey.RestApiController\\Gallifrey.RestApi.csproj
+		SccProjectName0 = Gallifrey.RestApiController
+		SccLocalPath0 = Gallifrey.RestApiController
+		SccProjectUniqueName1 = Gallifrey.Persistence\\Gallifrey.Persistence.csproj
+		SccProjectName1 = Gallifrey.Persistence
+		SccLocalPath1 = Gallifrey.Persistence
+		SccProjectUniqueName2 = FunctonalTest\\FunctionalTest.csproj
+		SccProjectName2 = FunctonalTest
+		SccLocalPath2 = FunctonalTest
+		SccProjectUniqueName3 = Gallifrey.Infrastructure\\Gallifrey.Infrastructure.csproj
+		SccProjectName3 = Gallifrey.Infrastructure
+		SccLocalPath3 = Gallifrey.Infrastructure
+		SccProjectUniqueName4 = Gallifrey.SharedKernel\\Gallifrey.SharedKernel.csproj
+		SccProjectName4 = Gallifrey.SharedKernel
+		SccLocalPath4 = Gallifrey.SharedKernel
+		SccProjectUniqueName5 = Architecture\\Architecture.modelproj
+		SccProjectName5 = Architecture
+		SccLocalPath5 = Architecture
+		SccLocalPath6 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F125B800-D1B9-4FB6-9E14-A7122BC51FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F125B800-D1B9-4FB6-9E14-A7122BC51FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F125B800-D1B9-4FB6-9E14-A7122BC51FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F125B800-D1B9-4FB6-9E14-A7122BC51FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DB4A61-6015-425B-B75E-2DA8171BE5C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DB4A61-6015-425B-B75E-2DA8171BE5C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DB4A61-6015-425B-B75E-2DA8171BE5C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DB4A61-6015-425B-B75E-2DA8171BE5C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B19ED0C4-486D-45A0-AFD3-A3139100D6E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B19ED0C4-486D-45A0-AFD3-A3139100D6E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B19ED0C4-486D-45A0-AFD3-A3139100D6E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B19ED0C4-486D-45A0-AFD3-A3139100D6E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10523B0E-AFFF-4B7E-8625-2A898F000313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10523B0E-AFFF-4B7E-8625-2A898F000313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10523B0E-AFFF-4B7E-8625-2A898F000313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10523B0E-AFFF-4B7E-8625-2A898F000313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB41C9CB-AFB6-4E2E-8279-54C0DA4B1BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB41C9CB-AFB6-4E2E-8279-54C0DA4B1BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB41C9CB-AFB6-4E2E-8279-54C0DA4B1BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB41C9CB-AFB6-4E2E-8279-54C0DA4B1BD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

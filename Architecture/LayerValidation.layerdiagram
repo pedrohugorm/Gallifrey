@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="68fc64d9-065f-4153-a13a-c514b234a72c" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="ed509ffa-796c-4e83-b514-33b3f44708cf" name="Gallifrey.SharedKernel">
+      <references>
+        <reference Id="682b7c6a-d0b3-4d53-9b98-06f2abf19e1f" name="Gallifrey.SharedKernel">
+          <ArtifactNode Label="Gallifrey.SharedKernel" Category="CodeSchema_Project" Id="(Assembly=../Gallifrey.SharedKernel/Gallifrey.SharedKernel.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Gallifrey.SharedKernel)" Label="Gallifrey.SharedKernel.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="17d8a6d8-9c48-4213-bd6e-5c52ded13a62" name="Gallifrey.Persistence">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="432569e2-ce98-429b-8ff1-f7e027cf82ba" direction="Forward">
+          <layerMoniker Id="ed509ffa-796c-4e83-b514-33b3f44708cf" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="21c0a509-520e-4ac9-928d-f05e9634e6ac" name="Gallifrey.Persistence">
+          <ArtifactNode Label="Gallifrey.Persistence" Category="CodeSchema_Project" Id="(Assembly=../Gallifrey.Persistence/Gallifrey.Persistence.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Gallifrey.Persistence)" Label="Gallifrey.Persistence.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="3d615b4d-271c-4296-8eee-89bd294e8b72" name="Gallifrey.RestApi">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="48ca4c54-34db-4476-a2ca-b7144be1b58a" direction="Forward">
+          <layerMoniker Id="ed509ffa-796c-4e83-b514-33b3f44708cf" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="fe90e17b-37ac-49ff-89c2-870827d98524" name="Gallifrey.RestApi">
+          <ArtifactNode Label="Gallifrey.RestApi" Category="CodeSchema_Project" Id="(Assembly=../Gallifrey.RestApiController/Gallifrey.RestApi.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Gallifrey.RestApi)" Label="Gallifrey.RestApi.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="05407b33-73aa-47f4-8526-0b2968a3b844" name="Gallifrey.Infrastructure">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="12ca7035-1a9e-4744-82a5-c8cc012e3319" direction="Forward">
+          <layerMoniker Id="ed509ffa-796c-4e83-b514-33b3f44708cf" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="9ea4e630-b2ee-4fa7-8771-b1c461568b3c" name="Gallifrey.Infrastructure">
+          <ArtifactNode Label="Gallifrey.Infrastructure" Category="CodeSchema_Project" Id="(Assembly=../Gallifrey.Infrastructure/Gallifrey.Infrastructure.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Gallifrey.Infrastructure)" Label="Gallifrey.Infrastructure.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>
