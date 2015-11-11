@@ -6,6 +6,11 @@ using Omu.ValueInjecter;
 
 namespace Gallifrey.Persistence.Application.Strategy
 {
+    /// <summary>
+    /// Default strategy to update items in repository
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TId"></typeparam>
     public class DefaultUpdateItemStrategy<TModel, TId> : IUpdateItemStrategy<TModel, TId>
         where TModel : class, IIdentity<TId>
     {

@@ -5,6 +5,11 @@ using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 
 namespace Gallifrey.Persistence.Application.Strategy
 {
+    /// <summary>
+    /// Default strategy to add items in repository
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TId"></typeparam>
     public class DefaultAddItemStrategy<TModel, TId> : IAddItemStrategy<TModel, TId>
         where TModel : class, IIdentity<TId>
     {
