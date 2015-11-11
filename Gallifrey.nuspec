@@ -16,9 +16,9 @@
     <tags></tags>
   </metadata>
   <files>
-	  <file src="FunctonalTest\bin\$configuration$\Gallifrey.SharedKernel.dll" target="lib\net40\" />
-	  <file src="FunctonalTest\bin\$configuration$\Gallifrey.Infrastructure.dll" target="lib\net40\" />
-	  <file src="FunctonalTest\bin\$configuration$\Gallifrey.Persistence.dll" target="lib\net40\" />
-	  <file src="FunctonalTest\bin\$configuration$\Gallifrey.RestApiController.dll" target="lib\net40\" />
+	  <file src="Gallifrey.SharedKernel\bin\$configuration$\Gallifrey.SharedKernel.dll" target="lib\net40\" />
+	  <file src="Gallifrey.Infrastructure\bin\$configuration$\Gallifrey.Infrastructure.dll" target="lib\net40\" />
+	  <file src="Gallifrey.Persistence\bin\$configuration$\Gallifrey.Persistence.dll" target="lib\net40\" />
+	  <file src="Gallifrey.RestApiController\bin\$configuration$\Gallifrey.RestApiController.dll" target="lib\net40\" />
   </files>
 </package>
