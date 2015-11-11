@@ -8,7 +8,7 @@
     <owners>Pedro Matos</owners>
     <licenseUrl>https://github.com/pedrohugorm/Gallifrey/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/pedrohugorm/Gallifrey</projectUrl>
-    <iconUrl></iconUrl>
+    <iconUrl>https://theplanetofgallifrey.files.wordpress.com/2013/09/pog1.png?w=50&h=50</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>A set of C# libraries aiming to abstract most of the behavior systems require do go thru the UI and the Database</description>
     <releaseNotes></releaseNotes>
