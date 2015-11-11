@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{bb41c9cb-afb6-4e2e-8279-54c0da4b1bd9}</ProjectGuid>
+    <ArchitectureToolsVersion>2.0.0.0</ArchitectureToolsVersion>
+    <Name>Architecture</Name>
+    <RootNamespace>Architecture</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
+  <ItemGroup>
+    <Folder Include="ModelDefinition\" />
+    <Content Include="ModelDefinition\Architecture.uml">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Validate Include="LayerValidation.layerdiagram">
+      <SubType>Content</SubType>
+    </Validate>
+    <Validate Include="LayerValidation.layerdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>LayerValidation.layerdiagram</DependentUpon>
+    </Validate>
+    <Validate Include="LayerValidation.layerdiagram.suppressions">
+      <SubType>Content</SubType>
+      <DependentUpon>LayerValidation.layerdiagram</DependentUpon>
+    </Validate>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gallifrey.Infrastructure\Gallifrey.Infrastructure.csproj">
+      <Name>Gallifrey.Infrastructure</Name>
+      <Project>{b19ed0c4-486d-45a0-afd3-a3139100d6e7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallifrey.Persistence\Gallifrey.Persistence.csproj">
+      <Name>Gallifrey.Persistence</Name>
+      <Project>{a02d34a4-9acd-4c64-8bc9-5f7033fa75b1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallifrey.RestApiController\Gallifrey.RestApi.csproj">
+      <Name>Gallifrey.RestApi</Name>
+      <Project>{f125b800-d1b9-4fb6-9e14-a7122bc51ffc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallifrey.SharedKernel\Gallifrey.SharedKernel.csproj">
+      <Name>Gallifrey.SharedKernel</Name>
+      <Project>{10523b0e-afff-4b7e-8625-2a898f000313}</Project>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
