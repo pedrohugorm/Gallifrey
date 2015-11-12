@@ -4,7 +4,7 @@ using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 namespace Gallifrey.Persistence.Application.Strategy
 {
     /// <summary>
-    /// No filter defined Strategy
+    /// Null strategy that filters nothing - create a new one extending this to alter its behavior
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public class NullHandleModelFilterStrategy<TModel> : IHandleModelFilterStrategy<TModel>

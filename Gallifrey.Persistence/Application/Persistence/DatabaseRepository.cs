@@ -7,6 +7,16 @@ using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 
 namespace Gallifrey.Persistence.Application.Persistence
 {
+    /// <summary>
+    /// Database repository for a given <typeparam name="TModel"></typeparam> and <typeparam name="TIdentityType"></typeparam>
+    /// You can extend its behavior, by defining strategies for each operation.
+    /// <see cref="IHandleModelFilterStrategy{TModel}"/> to change the way the repository filters data
+    /// <see cref="IAddItemStrategy{TModel,TId}"/> to change how repository inserts data
+    /// <see cref="IUpdateItemStrategy{TModel,TId}"/> to change the way how repository updates data
+    /// <see cref="IRemoveItemStrategy{TModel,TId}"/> to change the way how repository removes data
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TIdentityType"></typeparam>
     public class DatabaseRepository<TModel, TIdentityType> : IDatabaseRepository<TModel, TIdentityType>
         where TModel : class, IIdentity<TIdentityType>
     {

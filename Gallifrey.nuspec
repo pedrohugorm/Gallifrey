@@ -8,7 +8,7 @@
     <owners>Pedro Matos</owners>
     <licenseUrl>https://github.com/pedrohugorm/Gallifrey/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/pedrohugorm/Gallifrey</projectUrl>
-    <iconUrl></iconUrl>
+    <iconUrl>https://theplanetofgallifrey.files.wordpress.com/2013/09/pog1.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>A set of C# libraries aiming to abstract most of the behavior systems require do go thru the UI and the Database</description>
     <releaseNotes></releaseNotes>
@@ -18,7 +18,7 @@
   <files>
 	  <file src="Gallifrey.SharedKernel\bin\$configuration$\Gallifrey.SharedKernel.dll" target="lib\net40\" />
 	  <file src="Gallifrey.Infrastructure\bin\$configuration$\Gallifrey.Infrastructure.dll" target="lib\net40\" />
-	  <file src="Gallifrey.Persistence\bin\$configuration$\Gallifrey.Persistence.dll" target="lib\net40\" />
-	  <file src="Gallifrey.RestApiController\bin\$configuration$\Gallifrey.RestApiController.dll" target="lib\net40\" />
+	  <file src="Gallifrey.Persistence\bin\Gallifrey.Persistence.dll" target="lib\net40\" />
+	  <file src="Gallifrey.RestApiController\bin\Gallifrey.RestApi.dll" target="lib\net40\" />
   </files>
 </package>

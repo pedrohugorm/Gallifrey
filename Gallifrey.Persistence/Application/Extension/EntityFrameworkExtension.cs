@@ -4,6 +4,9 @@ using System.Management.Instrumentation;
 
 namespace Gallifrey.Persistence.Application.Extension
 {
+    /// <summary>
+    /// Entity extension to get a <see cref="DbSet{TEntity}"/> when you don't know which properties you have.
+    /// </summary>
     public static class EntityFrameworkExtension
     {
         public static DbSet<T> GetDbSet<T>(this DbContext context) where T : class

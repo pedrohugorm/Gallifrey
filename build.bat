@@ -14,10 +14,17 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild src\Terrarium.Sdk.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
+REM Package restore
+call %NuGet% restore Gallifrey.SharedKernel\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore Gallifrey.Infrastructure\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore Gallifrey.Persistence\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore Gallifrey.RestApiController\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore FunctonalTest\packages.config -OutputDirectory %cd%\packages -NonInteractive
+
+%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild Gallifrey.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
 mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net40
 
-%nuget% pack "src\Gallifrey.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+%nuget% pack "Gallifrey.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
