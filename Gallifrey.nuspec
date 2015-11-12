@@ -19,6 +19,6 @@
 	  <file src="Gallifrey.SharedKernel\bin\$configuration$\Gallifrey.SharedKernel.dll" target="lib\net40\" />
 	  <file src="Gallifrey.Infrastructure\bin\$configuration$\Gallifrey.Infrastructure.dll" target="lib\net40\" />
 	  <file src="Gallifrey.Persistence\bin\Gallifrey.Persistence.dll" target="lib\net40\" />
-	  <file src="Gallifrey.RestApiController\bin\Gallifrey.RestApiController.dll" target="lib\net40\" />
+	  <file src="Gallifrey.RestApiController\bin\Gallifrey.RestApi.dll" target="lib\net40\" />
   </files>
 </package>
