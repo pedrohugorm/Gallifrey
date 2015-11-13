@@ -52,6 +52,14 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentValidation, Version=5.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -134,6 +142,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Configuration\BaseConfiguration.cs" />
+    <Compile Include="Application\Configuration\DefaultConfiguration.cs" />
     <Compile Include="Application\Controller\AbstractMappedRestApiController.cs" />
     <Compile Include="Application\Controller\AbstractRestApiController.cs" />
     <Compile Include="Application\Domain\Model\IResponse.cs" />
@@ -162,6 +172,10 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gallifrey.Persistence\Gallifrey.Persistence.csproj">
+      <Project>{A02D34A4-9ACD-4C64-8BC9-5F7033FA75B1}</Project>
+      <Name>Gallifrey.Persistence</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gallifrey.SharedKernel\Gallifrey.SharedKernel.csproj">
       <Project>{10523B0E-AFFF-4B7E-8625-2A898F000313}</Project>
       <Name>Gallifrey.SharedKernel</Name>

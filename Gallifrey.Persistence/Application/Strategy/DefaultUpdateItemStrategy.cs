@@ -18,6 +18,7 @@ namespace Gallifrey.Persistence.Application.Strategy
         {
             var originalModel = dbSet.SingleOrDefault(r => r.Id.Equals(model.Id));
 
+            //TODO a way to extend this
             originalModel.InjectFrom(model);
         }
     }
