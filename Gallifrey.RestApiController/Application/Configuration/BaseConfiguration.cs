@@ -36,6 +36,7 @@ namespace Gallifrey.RestApi.Application.Configuration
                 });
 
                 x.For(typeof(IRepository<,>)).Use(typeof(DatabaseRepository<,>));
+                x.For(typeof(IDatabaseRepository<,>)).Use(typeof(DatabaseRepository<,>));
 
                 x.For<IPersistenceConfigurationProvider>().Use<DefaultPersistenceConfiguration>();
 
