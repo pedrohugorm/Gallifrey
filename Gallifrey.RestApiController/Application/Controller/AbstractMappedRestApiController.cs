@@ -44,7 +44,7 @@ namespace Gallifrey.RestApi.Application.Controller
         [HttpGet]
         public virtual ResponseContainer<TViewModel> Get(TIdentityType id)
         {
-            return new ResponseContainer<TViewModel>(_respository.Find(id).MapTo<TViewModel>());
+            return new ResponseContainer<TViewModel>(_respository.Find(id).MapTo<TModel, TViewModel>());
         }
 
         [HttpPost]
@@ -57,7 +57,7 @@ namespace Gallifrey.RestApi.Application.Controller
                 if (!ModelState.IsValid)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 
-                _respository.InsertOrUpdate(value.MapTo<TModel>());
+                _respository.InsertOrUpdate(value.MapTo<TViewModel, TModel>());
                 _respository.Save();
             }
             catch (Exception e)
@@ -77,7 +77,7 @@ namespace Gallifrey.RestApi.Application.Controller
                 if (!ModelState.IsValid)
                     Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 
-                _respository.InsertOrUpdate(value.MapTo<TModel>());
+                _respository.InsertOrUpdate(value.MapTo<TViewModel, TModel>());
                 _respository.Save();
             }
             catch (Exception e)

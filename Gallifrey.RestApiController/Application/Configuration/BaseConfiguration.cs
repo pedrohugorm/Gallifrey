@@ -10,6 +10,7 @@ using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 using Gallifrey.SharedKernel.Application.Validation;
 using StructureMap;
 using StructureMap.Graph;
+using WebGrease.Css.Extensions;
 
 namespace Gallifrey.RestApi.Application.Configuration
 {
@@ -33,6 +34,7 @@ namespace Gallifrey.RestApi.Application.Configuration
                     s.AddAllTypesOf(typeof(IRepository<,>));
                     s.AddAllTypesOf(typeof(IDatabaseRepository<,>));
                     s.AddAllTypesOf(typeof(IIdentity<>));
+                    s.AddAllTypesOf<IRegisterMapping>();
                 });
 
                 x.For(typeof(IRepository<,>)).Use(typeof(DatabaseRepository<,>));
@@ -45,6 +47,9 @@ namespace Gallifrey.RestApi.Application.Configuration
                 x.For(typeof(IUpdateItemStrategy<,>)).Use(typeof(DefaultUpdateItemStrategy<,>));
                 x.For(typeof(IRemoveItemStrategy<,>)).Use(typeof(DefaultRemoveItemStrategy<,>));
             });
+
+            //Register all mappings found
+            _container.GetAllInstances<IRegisterMapping>().ForEach(r => r.Register());
         }
 
         public void SetDatabaseContext<TDatabaseContext>() where TDatabaseContext : DbContext

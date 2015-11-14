@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Application\Configuration\IGallifreyConfiguration.cs" />
     <Compile Include="Application\Configuration\IGallifreyContainer.cs" />
+    <Compile Include="Application\Configuration\IRegisterMapping.cs" />
     <Compile Include="Application\Exception\MoreThanOneFoundInContainerException.cs" />
     <Compile Include="Application\Exception\TypeNotFoundInContainerException.cs" />
     <Compile Include="Application\Extension\MappingExtension.cs" />

@@ -11,14 +11,22 @@ namespace Gallifrey.SharedKernel.Application.Extension
     /// </summary>
     public static class MappingExtension
     {
+        static void CreateMappingIfNonExistant<TTypeFrom, TTypeTo>()
+        {
+            if (Mapper.FindTypeMapFor<TTypeFrom, TTypeTo>() == null)
+                Mapper.CreateMap<TTypeFrom, TTypeTo>();
+        }
+
         public static IQueryable<TTypeTo> MapEnumerableFromTo<TTypeFrom, TTypeTo>(this IQueryable<TTypeFrom> enumerable)
         {
+            CreateMappingIfNonExistant<TTypeFrom, TTypeTo>();
+
             return enumerable.Project().To<TTypeTo>();
         }
 
-        public static T MapTo<T>(this object value)
+        public static TTypeTo MapTo<TTypeFrom, TTypeTo>(this TTypeFrom value)
         {
-            return Mapper.Map<T>(value);
+            return Mapper.Map<TTypeTo>(value);
         }
     }
 }
