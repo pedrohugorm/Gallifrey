@@ -10,17 +10,16 @@ using Gallifrey.SharedKernel.Application.Validation;
 
 namespace Gallifrey.RestApi.Application.Controller
 {
-    public abstract class AbstractMappedRestApiController<TModel, TIdentityType, TRepository, TMappedModel> :
+    public abstract class AbstractMappedRestApiController<TViewModel, TIdentityType, TDomainModel> :
         ApiController
-        where TRepository : IDatabaseRepository<TModel, TIdentityType>
-        where TModel : class
-        where TMappedModel : class
+        where TViewModel : class
+        where TDomainModel : class
     {
-        private readonly TRepository _respository;
+        private readonly IDatabaseRepository<TViewModel, TIdentityType> _respository;
 
-        private readonly ValidationStrategyFactory<TMappedModel> _validation;
+        private readonly ValidationStrategyFactory<TDomainModel> _validation;
 
-        protected AbstractMappedRestApiController(TRepository respository,
+        protected AbstractMappedRestApiController(IDatabaseRepository<TViewModel, TIdentityType> respository,
             IEnumerable<IValidationStrategy> validationStrategies)
         {
             _respository = respository;
@@ -28,28 +27,28 @@ namespace Gallifrey.RestApi.Application.Controller
             _respository.DisableProxyAndLazyLoading();
 
             _validation =
-                new ValidationStrategyFactory<TMappedModel>(error => ModelState.AddModelError("Validation", error),
+                new ValidationStrategyFactory<TDomainModel>(error => ModelState.AddModelError("Validation", error),
                     validationStrategies);
         }
 
-        private void ValidateWithStrategy(TMappedModel model)
+        private void ValidateWithStrategy(TDomainModel model)
         {
             _validation.Validate(model);
         }
 
-        public virtual IEnumerable<TMappedModel> Get()
+        public virtual IEnumerable<TDomainModel> Get()
         {
-            return _respository.GetAllFiltered().MapEnumerableFromTo<TModel, TMappedModel>();
+            return _respository.GetAllFiltered().MapEnumerableFromTo<TViewModel, TDomainModel>();
         }
 
         [HttpGet]
-        public virtual ResponseContainer<TMappedModel> Get(TIdentityType id)
+        public virtual ResponseContainer<TDomainModel> Get(TIdentityType id)
         {
-            return new ResponseContainer<TMappedModel>(_respository.Find(id).MapTo<TMappedModel>());
+            return new ResponseContainer<TDomainModel>(_respository.Find(id).MapTo<TDomainModel>());
         }
 
         [HttpPost]
-        public virtual HttpResponseMessage Post([FromBody] TMappedModel value)
+        public virtual HttpResponseMessage Post([FromBody] TDomainModel value)
         {
             try
             {
@@ -58,7 +57,7 @@ namespace Gallifrey.RestApi.Application.Controller
                 if (!ModelState.IsValid)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 
-                _respository.InsertOrUpdate(value.MapTo<TModel>());
+                _respository.InsertOrUpdate(value.MapTo<TViewModel>());
                 _respository.Save();
             }
             catch (Exception e)
@@ -69,7 +68,7 @@ namespace Gallifrey.RestApi.Application.Controller
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
-        public virtual HttpResponseMessage Put(int id, [FromBody] TMappedModel value)
+        public virtual HttpResponseMessage Put(int id, [FromBody] TDomainModel value)
         {
             try
             {
@@ -78,7 +77,7 @@ namespace Gallifrey.RestApi.Application.Controller
                 if (!ModelState.IsValid)
                     Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 
-                _respository.InsertOrUpdate(value.MapTo<TModel>());
+                _respository.InsertOrUpdate(value.MapTo<TViewModel>());
                 _respository.Save();
             }
             catch (Exception e)

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using Gallifrey.Persistence.Application.Persistence;
 using Gallifrey.Persistence.Application.Strategy;
 using Gallifrey.SharedKernel.Application.Configuration;
@@ -11,7 +13,7 @@ using StructureMap.Graph;
 
 namespace Gallifrey.RestApi.Application.Configuration
 {
-    public abstract class BaseConfiguration : IGallifreyConfiguration
+    public abstract class BaseConfiguration : IGallifreyConfiguration, IGallifreyContainer
     {
         private readonly IContainer _container;
 
@@ -89,6 +91,26 @@ namespace Gallifrey.RestApi.Application.Configuration
             where TModel : class, IIdentity<TId>
         {
             _container.Configure(x => x.For(typeof (IRemoveItemStrategy<,>)).Use(typeof (TRemoveItemStrategy)));
+        }
+
+        public IEnumerable<T> GetAllInstances<T>()
+        {
+            return _container.GetAllInstances<T>();
+        }
+
+        public IEnumerable<object> GetAllInstances(Type type)
+        {
+            return (IEnumerable<object>) _container.GetAllInstances(type);
+        }
+
+        public T GetInstance<T>()
+        {
+            return _container.GetInstance<T>();
+        }
+
+        public object GetInstance(Type type)
+        {
+            return _container.GetInstance(type);
         }
     }
 }
