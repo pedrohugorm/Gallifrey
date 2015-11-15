@@ -26,6 +26,8 @@ namespace Gallifrey.SharedKernel.Application.Extension
 
         public static TTypeTo MapTo<TTypeFrom, TTypeTo>(this TTypeFrom value)
         {
+            CreateMappingIfNonExistant<TTypeFrom, TTypeTo>();
+
             return Mapper.Map<TTypeTo>(value);
         }
     }
