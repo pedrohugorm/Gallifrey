@@ -24,6 +24,8 @@ namespace Gallifrey.RestApi.Application.Configuration
                 s.AddAllTypesOf(typeof (IIdentity<>));
                 s.AddAllTypesOf(typeof (IHandleEntityChanged<>));
                 s.AddAllTypesOf(typeof (IHandleEntityChanging<>));
+                s.ConnectImplementationsToTypesClosing(typeof (IHandleEntityChanged<>));
+                s.ConnectImplementationsToTypesClosing(typeof (IHandleEntityChanging<>));
                 s.AddAllTypesOf<IRegisterMapping>();
 
                 s.AddAllTypesOf(typeof (IValidator<>));
