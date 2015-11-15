@@ -1,7 +1,7 @@
+using FluentValidation;
 using Gallifrey.SharedKernel.Application.Configuration;
 using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
-using Gallifrey.SharedKernel.Application.Validation;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
@@ -15,7 +15,6 @@ namespace Gallifrey.RestApi.Application.Configuration
             {
                 s.TheCallingAssembly();
                 s.RegisterConcreteTypesAgainstTheFirstInterface();
-                s.AddAllTypesOf(typeof (IValidationStrategy<>));
                 s.AddAllTypesOf(typeof (IPersistItem<,>));
                 s.AddAllTypesOf(typeof (IRetrieveItemByIdentity<,>));
                 s.AddAllTypesOf(typeof (IRetrieveQueryOfItems<>));
@@ -25,6 +24,7 @@ namespace Gallifrey.RestApi.Application.Configuration
                 s.AddAllTypesOf(typeof (IHandleEntityChanged<>));
                 s.AddAllTypesOf(typeof (IHandleEntityChanging<>));
                 s.AddAllTypesOf<IRegisterMapping>();
+                s.AddAllTypesOf(typeof (IValidator<>));
             });
 
             For<IPersistenceConfigurationProvider>().UseIfNone<DefaultPersistenceConfiguration>();

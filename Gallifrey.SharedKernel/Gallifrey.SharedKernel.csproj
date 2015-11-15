@@ -103,9 +103,8 @@
     <Compile Include="Application\Persistence\Strategy\IAddItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IRemoveItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IUpdateItemStrategy.cs" />
-    <Compile Include="Application\Validation\IValidationStrategy.cs" />
+    <Compile Include="Application\Validation\IValidationHelper.cs" />
     <Compile Include="Application\Validation\ValidationResult.cs" />
-    <Compile Include="Application\Validation\ValidationStrategyFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

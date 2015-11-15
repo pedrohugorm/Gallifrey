@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using FluentValidation;
 using Gallifrey.RestApi.Application.Domain.Model;
+using Gallifrey.RestApi.Application.Validation;
 using Gallifrey.SharedKernel.Application.Extension;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Validation;
@@ -16,24 +18,17 @@ namespace Gallifrey.RestApi.Application.Controller
         where TViewModel : class
     {
         private readonly IDatabaseRepository<TModel, TIdentityType> _respository;
-
-        private readonly ValidationStrategyFactory<TViewModel> _validation;
-
+        private readonly IValidationHelper<TViewModel> _validationHelper; 
+        
         protected AbstractMappedRestApiController(IDatabaseRepository<TModel, TIdentityType> respository,
-            IEnumerable<IValidationStrategy> validationStrategies)
+            IEnumerable<IValidator<TViewModel>> validators)
         {
             _respository = respository;
+            
             //Usefull for serialization of REST API
             _respository.DisableProxyAndLazyLoading();
 
-            _validation =
-                new ValidationStrategyFactory<TViewModel>(error => ModelState.AddModelError("Validation", error),
-                    validationStrategies);
-        }
-
-        private void ValidateWithStrategy(TViewModel model)
-        {
-            _validation.Validate(model);
+            _validationHelper = new ModelStateValidationHelper<TViewModel>(ModelState, validators);
         }
 
         public virtual IEnumerable<TViewModel> Get()
@@ -52,7 +47,7 @@ namespace Gallifrey.RestApi.Application.Controller
         {
             try
             {
-                ValidateWithStrategy(value);
+                _validationHelper.Validate(value);
 
                 if (!ModelState.IsValid)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
@@ -72,7 +67,7 @@ namespace Gallifrey.RestApi.Application.Controller
         {
             try
             {
-                ValidateWithStrategy(value);
+                _validationHelper.Validate(value);
 
                 if (!ModelState.IsValid)
                     Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);

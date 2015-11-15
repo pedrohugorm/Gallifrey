@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using FluentValidation;
+using Gallifrey.RestApi.Application.Validation;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Validation;
 
@@ -14,23 +16,21 @@ namespace Gallifrey.RestApi.Application.Controller
         where TIdentityType : struct
     {
         private readonly TRepository _respository;
-
-        private readonly ValidationStrategyFactory<TModel> _validation;
+        private readonly IValidationHelper<TModel> _validationHelper;
 
         protected AbstractRestApiController(TRepository respository,
-            IEnumerable<IValidationStrategy<TModel>> validationStrategies)
+            IEnumerable<IValidator<TModel>> validators)
         {
             _respository = respository;
             //Usefull for serialization of REST API
             _respository.DisableProxyAndLazyLoading();
 
-            _validation = new ValidationStrategyFactory<TModel>(e => ModelState.AddModelError("", e),
-                validationStrategies);
+            _validationHelper = new ModelStateValidationHelper<TModel>(ModelState, validators);
         }
 
         private void Validate(TModel model)
         {
-            _validation.Validate(model);
+            _validationHelper.Validate(model);
         }
 
         // GET api/transactionapi
