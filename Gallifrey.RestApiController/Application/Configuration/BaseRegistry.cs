@@ -13,6 +13,7 @@ namespace Gallifrey.RestApi.Application.Configuration
         {
             Scan(s =>
             {
+                s.WithDefaultConventions();
                 s.TheCallingAssembly();
                 s.RegisterConcreteTypesAgainstTheFirstInterface();
                 s.AddAllTypesOf(typeof (IPersistItem<,>));
@@ -24,7 +25,11 @@ namespace Gallifrey.RestApi.Application.Configuration
                 s.AddAllTypesOf(typeof (IHandleEntityChanged<>));
                 s.AddAllTypesOf(typeof (IHandleEntityChanging<>));
                 s.AddAllTypesOf<IRegisterMapping>();
+
                 s.AddAllTypesOf(typeof (IValidator<>));
+                s.AddAllTypesOf(typeof (AbstractValidator<>));
+                s.ConnectImplementationsToTypesClosing(typeof (AbstractValidator<>));
+                s.ConnectImplementationsToTypesClosing(typeof (IValidator<>));
             });
 
             For<IPersistenceConfigurationProvider>().UseIfNone<DefaultPersistenceConfiguration>();

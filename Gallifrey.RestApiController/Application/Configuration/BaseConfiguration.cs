@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Reflection;
+using FluentValidation;
 using Gallifrey.SharedKernel.Application.Configuration;
 using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
@@ -39,6 +41,18 @@ namespace Gallifrey.RestApi.Application.Configuration
         public BaseConfiguration UsingDefaultCrudStrategies()
         {
             _container.Configure(x => x.AddRegistry<DefaultCrudRegistry>());
+
+            return this;
+        }
+
+        public BaseConfiguration RegisterValidationsInAssembly(Assembly assembly)
+        {
+            AssemblyScanner.FindValidatorsInAssembly(assembly)
+                .ForEach(result =>
+                {
+                    _container.Configure(
+                        x => x.For(result.InterfaceType).Singleton().Use(result.ValidatorType));
+                });
 
             return this;
         }

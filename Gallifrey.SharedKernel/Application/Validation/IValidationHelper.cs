@@ -4,4 +4,9 @@ namespace Gallifrey.SharedKernel.Application.Validation
     {
         void Validate(TModel model);
     }
+
+    public interface IValidate<in TModel>
+    {
+        FluentValidation.Results.ValidationResult Validate(TModel model);
+    }
 }

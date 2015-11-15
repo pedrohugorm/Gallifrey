@@ -3,8 +3,11 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using FluentValidation;
 using FunctionalTest.Domain;
 using Gallifrey.RestApi.Application.Configuration;
+using Gallifrey.RestApi.Application.Validation;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,9 +53,33 @@ namespace FunctionalTest
         }
     }
 
+    public class TestModelValidator : AbstractValidator<TestModel>
+    {
+        public TestModelValidator()
+        {
+            RuleFor(r => r.Id).NotEqual(Guid.Empty);
+        }
+    }
+
     [TestClass]
     public class IocContainerTest
     {
+        [TestMethod]
+        public void ShouldLoadValidator()
+        {
+            var container = new Container();
+            var configuration = new TestConfigurationFromBase(container);
+            configuration.RegisterValidationsInAssembly(Assembly.GetExecutingAssembly());
+            
+            var whatDoIHave = container.WhatDoIHave();
+
+            var model = new TestModel();
+
+            var validators = container.GetAllInstances<IValidator<TestModel>>();
+            
+            Assert.IsInstanceOfType(validators.Single(), typeof(TestModelValidator));
+        }
+
         [TestMethod]
         public void ShouldGenerateNewGuid()
         {
