@@ -146,7 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Configuration\BaseConfiguration.cs" />
+    <Compile Include="Application\Configuration\BaseRegistry.cs" />
     <Compile Include="Application\Configuration\DefaultConfiguration.cs" />
+    <Compile Include="Application\Configuration\DefaultCrudRegistry.cs" />
+    <Compile Include="Application\Configuration\DefaultDatabaseRegistry.cs" />
     <Compile Include="Application\Controller\AbstractMappedRestApiController.cs" />
     <Compile Include="Application\Controller\AbstractRestApiController.cs" />
     <Compile Include="Application\Domain\Model\IResponse.cs" />

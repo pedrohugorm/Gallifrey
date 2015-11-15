@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Gallifrey.Persistence.Application.Extension;
 using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
+using StructureMap;
+using WebGrease.Css.Extensions;
 
 namespace Gallifrey.Persistence.Application.Persistence
 {
@@ -22,24 +25,27 @@ namespace Gallifrey.Persistence.Application.Persistence
     {
         private readonly DbContext _context;
         private readonly IPersistenceConfigurationProvider _provider;
-        private readonly IHandleModelFilterStrategy<TModel> _modelFilterStrategy;
+        private readonly IContainer _container;
         private readonly IAddItemStrategy<TModel, TIdentityType> _addItemStrategy;
         private readonly IUpdateItemStrategy<TModel, TIdentityType> _updateItemStrategy;
         private readonly IRemoveItemStrategy<TModel, TIdentityType> _removeItemStrategy;
 
         public DatabaseRepository(DbContext context,
             IPersistenceConfigurationProvider provider,
-            IHandleModelFilterStrategy<TModel> modelFilterStrategy, 
+            IContainer container, 
             IAddItemStrategy<TModel, TIdentityType> addItemStrategy,
             IUpdateItemStrategy<TModel, TIdentityType> updateItemStrategy,
             IRemoveItemStrategy<TModel, TIdentityType> removeItemStrategy)
         {
             _context = context;
             _provider = provider;
-            _modelFilterStrategy = modelFilterStrategy;
+            _container = container;
             _addItemStrategy = addItemStrategy;
             _updateItemStrategy = updateItemStrategy;
             _removeItemStrategy = removeItemStrategy;
+
+            EntityChangingHandlers = _container.GetAllInstances<IHandleEntityChanging<TModel>>();
+            EntityChangedHandlers = _container.GetAllInstances<IHandleEntityChanged<TModel>>();
         }
 
         public virtual DbContext GetContext()
@@ -69,7 +75,19 @@ namespace Gallifrey.Persistence.Application.Persistence
         /// <returns></returns>
         public virtual IQueryable<TModel> ApplyFilterAndOrdering(IQueryable<TModel> enumerable)
         {
-            return _modelFilterStrategy.HandleFilter(enumerable);
+            var filters = _container.GetAllInstances<IHandleModelFilterStrategy<TModel>>().ToList();
+
+            if(!filters.Any())
+                return enumerable;
+
+            var result = enumerable;
+
+            foreach (var filter in filters)
+            {
+                result = filter.HandleFilter(enumerable);
+            }
+
+            return result;
         }
 
         public TModel Find(TIdentityType id)
@@ -90,6 +108,9 @@ namespace Gallifrey.Persistence.Application.Persistence
             _removeItemStrategy.RemoveItem(GetDbSet(), id);
         }
 
+        public IEnumerable<IHandleEntityChanging<TModel>> EntityChangingHandlers { get; set; }
+        public IEnumerable<IHandleEntityChanged<TModel>> EntityChangedHandlers { get; set; }
+
         public void DisableProxyAndLazyLoading()
         {
             GetContext().Configuration.ProxyCreationEnabled = _provider.ProxyCreationEnabled;
@@ -98,7 +119,12 @@ namespace Gallifrey.Persistence.Application.Persistence
 
         public void Save()
         {
+            var entries = GetContext().ChangeTracker.Entries<TModel>().ToList();
+            entries.ForEach(e => EntityChangingHandlers.ForEach(h => h.OnEntityChanging(e)));
+
             GetContext().SaveChanges();
+
+            entries.ForEach(e => EntityChangedHandlers.ForEach(h => h.OnEntityChanged(e)));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Gallifrey.SharedKernel.Application.Persistence.Repository
 {
@@ -6,6 +7,9 @@ namespace Gallifrey.SharedKernel.Application.Persistence.Repository
         IRepositoryFilters<TModel>
         where TModel : class
     {
+        IEnumerable<IHandleEntityChanging<TModel>> EntityChangingHandlers { set; get; } 
+        IEnumerable<IHandleEntityChanged<TModel>> EntityChangedHandlers { set; get; } 
+
         void DisableProxyAndLazyLoading();
 
         DbContext GetContext();

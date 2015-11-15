@@ -4,8 +4,15 @@ namespace Gallifrey.RestApi.Application.Configuration
 {
     public class DefaultConfiguration : BaseConfiguration
     {
-        public DefaultConfiguration() : base(new Container())
+        public DefaultConfiguration(IContainer container) : base(container)
         {
+            UsingDefaultDatabaseRepository();
+            UsingDefaultCrudStrategies();
+        }
+
+        public DefaultConfiguration() : this(new Container())
+        {
+            
         }
     }
 }

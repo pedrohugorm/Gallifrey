@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Gallifrey.SharedKernel.Application.Persistence;
@@ -45,25 +46,15 @@ namespace Gallifrey.SharedKernel.Application.Configuration
         /// While adding an item, the repository triggers this strategy.
         /// That way you can define your own code to add entities
         /// </summary>
-        /// <typeparam name="TAddItemStrategy"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TId"></typeparam>
         /// <param name="strategy"></param>
-        void SetAddItemStrategy<TAddItemStrategy, TModel, TId>(TAddItemStrategy strategy)
-            where TAddItemStrategy : IAddItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>;
+        void SetAddItemStrategy(Type strategy);
 
         /// <summary>
         /// While updating an item, the repository triggers this strategy.
         /// That way you can define your own code to update entities
         /// </summary>
-        /// <typeparam name="TUpdateItemStrategy"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TId"></typeparam>
         /// <param name="strategy"></param>
-        void SetUpdateItemStrategy<TUpdateItemStrategy, TModel, TId>(TUpdateItemStrategy strategy)
-            where TUpdateItemStrategy : IUpdateItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>;
+        void SetUpdateItemStrategy(Type strategy);
 
         /// <summary>
         /// While deleting an item, the repository triggers this strategy.
@@ -71,12 +62,7 @@ namespace Gallifrey.SharedKernel.Application.Configuration
         /// You can change the way the repository removes an item, for instance:
         /// You can change it to delete logically (using a DeletedAt field, for instance)
         /// </summary>
-        /// <typeparam name="TRemoveItemStrategy"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TId"></typeparam>
         /// <param name="strategy"></param>
-        void SetRemoveItemStrategy<TRemoveItemStrategy, TModel, TId>(TRemoveItemStrategy strategy)
-            where TRemoveItemStrategy : IRemoveItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>;
+        void SetRemoveItemStrategy(Type strategy);
     }
 }

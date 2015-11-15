@@ -1,60 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using Gallifrey.Persistence.Application.Persistence;
-using Gallifrey.Persistence.Application.Strategy;
 using Gallifrey.SharedKernel.Application.Configuration;
 using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
-using Gallifrey.SharedKernel.Application.Validation;
 using StructureMap;
-using StructureMap.Graph;
 using WebGrease.Css.Extensions;
 
 namespace Gallifrey.RestApi.Application.Configuration
 {
-    public abstract class BaseConfiguration : IGallifreyConfiguration, IGallifreyContainer
+    public abstract class BaseConfiguration : IGallifreyConfiguration
     {
         private readonly IContainer _container;
+
+        protected BaseConfiguration() : this(new Container())
+        {
+        }
 
         protected BaseConfiguration(IContainer container)
         {
             _container = container;
-            _container.Configure(x =>
-            {
-                x.Scan(s =>
-                {
-                    s.TheCallingAssembly();
-                    s.RegisterConcreteTypesAgainstTheFirstInterface();
-                    s.AddAllTypesOf(typeof(IValidationStrategy<>));
-                    s.AddAllTypesOf(typeof(IPersistItem<,>));
-                    s.AddAllTypesOf(typeof(IRetrieveItemByIdentity<,>));
-                    s.AddAllTypesOf(typeof(IRetrieveQueryOfItems<>));
-                    s.AddAllTypesOf(typeof(IRepository<,>));
-                    s.AddAllTypesOf(typeof(IDatabaseRepository<,>));
-                    s.AddAllTypesOf(typeof(IIdentity<>));
-                    s.AddAllTypesOf<IRegisterMapping>();
-                });
-
-                x.For(typeof(IRepository<,>)).Use(typeof(DatabaseRepository<,>));
-                x.For(typeof(IDatabaseRepository<,>)).Use(typeof(DatabaseRepository<,>));
-
-                x.For<IPersistenceConfigurationProvider>().Use<DefaultPersistenceConfiguration>();
-
-                x.For(typeof(IHandleModelFilterStrategy<>)).Use(typeof(NullHandleModelFilterStrategy<>));
-                x.For(typeof(IAddItemStrategy<,>)).Use(typeof(DefaultAddItemStrategy<,>));
-                x.For(typeof(IUpdateItemStrategy<,>)).Use(typeof(DefaultUpdateItemStrategy<,>));
-                x.For(typeof(IRemoveItemStrategy<,>)).Use(typeof(DefaultRemoveItemStrategy<,>));
-            });
+            _container.Configure(x => x.AddRegistry<BaseRegistry>());
 
             //Register all mappings found
             _container.GetAllInstances<IRegisterMapping>().ForEach(r => r.Register());
         }
 
+        /// <summary>
+        /// Use default database repository configuration
+        /// </summary>
+        public BaseConfiguration UsingDefaultDatabaseRepository()
+        {
+            _container.Configure(x => x.AddRegistry<DefaultDatabaseRegistry>());
+
+            return this;
+        }
+
+        public BaseConfiguration UsingDefaultCrudStrategies()
+        {
+            _container.Configure(x => x.AddRegistry<DefaultCrudRegistry>());
+
+            return this;
+        }
+
         public void SetDatabaseContext<TDatabaseContext>() where TDatabaseContext : DbContext
         {
-            _container.Configure(x => x.For(typeof (DbContext)).Use(typeof (TDatabaseContext)));
+            _container.Configure(x => x.For<DbContext>().Use<TDatabaseContext>());
         }
 
         public void SetPersistenceConfigurationProvider<TPersistenceProvider>()
@@ -78,45 +69,19 @@ namespace Gallifrey.RestApi.Application.Configuration
             _container.Configure(x => x.For(typeof (IHandleModelFilterStrategy<>)).Use(typeof (TFilterHandler)));
         }
 
-        public void SetAddItemStrategy<TAddItemStrategy, TModel, TId>(TAddItemStrategy strategy)
-            where TAddItemStrategy : IAddItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>
+        public void SetAddItemStrategy(Type strategy)
         {
-            _container.Configure(x => x.For(typeof (IAddItemStrategy<,>)).Use(typeof (TAddItemStrategy)));
+            _container.Configure(x => x.For(typeof(IAddItemStrategy<,>)).Use(strategy));
         }
 
-        public void SetUpdateItemStrategy<TUpdateItemStrategy, TModel, TId>(TUpdateItemStrategy strategy)
-            where TUpdateItemStrategy : IUpdateItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>
+        public void SetUpdateItemStrategy(Type strategy)
         {
-            _container.Configure(x => x.For(typeof(IUpdateItemStrategy<,>)).Use(typeof(TUpdateItemStrategy)));
+            _container.Configure(x => x.For(typeof(IUpdateItemStrategy<,>)).Use(strategy));
         }
 
-        public void SetRemoveItemStrategy<TRemoveItemStrategy, TModel, TId>(TRemoveItemStrategy strategy)
-            where TRemoveItemStrategy : IRemoveItemStrategy<TModel, TId>
-            where TModel : class, IIdentity<TId>
+        public void SetRemoveItemStrategy(Type strategy)
         {
-            _container.Configure(x => x.For(typeof (IRemoveItemStrategy<,>)).Use(typeof (TRemoveItemStrategy)));
-        }
-
-        public IEnumerable<T> GetAllInstances<T>()
-        {
-            return _container.GetAllInstances<T>();
-        }
-
-        public IEnumerable<object> GetAllInstances(Type type)
-        {
-            return (IEnumerable<object>) _container.GetAllInstances(type);
-        }
-
-        public T GetInstance<T>()
-        {
-            return _container.GetInstance<T>();
-        }
-
-        public object GetInstance(Type type)
-        {
-            return _container.GetInstance(type);
+            _container.Configure(x => x.For(typeof(IRemoveItemStrategy<,>)).Use(strategy));
         }
     }
 }

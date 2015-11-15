@@ -88,6 +88,8 @@
     <Compile Include="Application\Extension\MappingExtension.cs" />
     <Compile Include="Application\Infrastructure\IPrincipalProvider.cs" />
     <Compile Include="Application\Persistence\DefaultPersistenceConfiguration.cs" />
+    <Compile Include="Application\Persistence\Repository\IHandleEntityChanged.cs" />
+    <Compile Include="Application\Persistence\Repository\IHandleEntityChanging.cs" />
     <Compile Include="Application\Persistence\Strategy\IHandleModelFilterStrategy.cs" />
     <Compile Include="Application\Ioc\IConfigureContainer.cs" />
     <Compile Include="Application\Persistence\IPersistenceConfigurationProvider.cs" />
