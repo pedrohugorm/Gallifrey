@@ -43,9 +43,6 @@ namespace Gallifrey.Persistence.Application.Persistence
             _addItemStrategy = addItemStrategy;
             _updateItemStrategy = updateItemStrategy;
             _removeItemStrategy = removeItemStrategy;
-
-            EntityChangingHandlers = _container.GetAllInstances<IHandleEntityChanging<TModel>>();
-            EntityChangedHandlers = _container.GetAllInstances<IHandleEntityChanged<TModel>>();
         }
 
         public virtual DbContext GetContext()
@@ -119,12 +116,15 @@ namespace Gallifrey.Persistence.Application.Persistence
 
         public void Save()
         {
+            var entityChangingHandlers = _container.GetAllInstances<IHandleEntityChanging<TModel>>();
+            var entityChangedHandlers = _container.GetAllInstances<IHandleEntityChanged<TModel>>();
+
             var entries = GetContext().ChangeTracker.Entries<TModel>().ToList();
-            entries.ForEach(e => EntityChangingHandlers.ForEach(h => h.OnEntityChanging(e)));
+            entries.ForEach(e => entityChangingHandlers.ForEach(h => h.OnEntityChanging(e)));
 
             GetContext().SaveChanges();
 
-            entries.ForEach(e => EntityChangedHandlers.ForEach(h => h.OnEntityChanged(e)));
+            entries.ForEach(e => entityChangedHandlers.ForEach(h => h.OnEntityChanged(e)));
         }
     }
 }

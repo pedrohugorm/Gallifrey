@@ -7,9 +7,6 @@ namespace Gallifrey.SharedKernel.Application.Persistence.Repository
         IRepositoryFilters<TModel>
         where TModel : class
     {
-        IEnumerable<IHandleEntityChanging<TModel>> EntityChangingHandlers { set; get; } 
-        IEnumerable<IHandleEntityChanged<TModel>> EntityChangedHandlers { set; get; } 
-
         void DisableProxyAndLazyLoading();
 
         DbContext GetContext();
