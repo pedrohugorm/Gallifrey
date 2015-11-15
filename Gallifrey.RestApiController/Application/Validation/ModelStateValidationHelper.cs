@@ -22,7 +22,7 @@ namespace Gallifrey.RestApi.Application.Validation
         {
             var validationResults = _validators.Select(r => r.Validate(model)).ToList();
 
-            if (!validationResults.All(r => r.IsValid))
+            if (validationResults.All(r => r.IsValid))
                 return;
 
             var validationErrors = validationResults.SelectMany(r => r.Errors);

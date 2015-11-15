@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Web.Http.ModelBinding;
 using FluentValidation;
 using FunctionalTest.Domain;
 using Gallifrey.RestApi.Application.Configuration;
@@ -64,6 +65,26 @@ namespace FunctionalTest
     [TestClass]
     public class IocContainerTest
     {
+        [TestMethod]
+        public void ShouldFailValidation()
+        {
+            var container = new Container();
+            var configuration = new TestConfigurationFromBase(container);
+            configuration.RegisterValidationsInAssembly(Assembly.GetExecutingAssembly());
+
+            var model = new TestModel {Id = Guid.Empty};
+
+            var validators = container.GetAllInstances<IValidator<TestModel>>();
+
+            var modelState = new ModelStateDictionary();
+
+            var helper = new ModelStateValidationHelper<TestModel>(modelState, validators);
+            helper.Validate(model);
+
+            Assert.IsFalse(modelState.IsValid);
+            Assert.IsTrue(modelState.Values.Any());
+        }
+
         [TestMethod]
         public void ShouldLoadValidator()
         {
