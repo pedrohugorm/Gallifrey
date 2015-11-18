@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Gallifrey.Persistence.Application.Extension;
 using Gallifrey.SharedKernel.Application.Persistence;
@@ -114,17 +115,50 @@ namespace Gallifrey.Persistence.Application.Persistence
             GetContext().Configuration.LazyLoadingEnabled = _provider.LazyLoadingEnabled;
         }
 
+        private readonly IList<EntityChangedEvent<TModel>> _postSaveEventsToTrigger = new List<EntityChangedEvent<TModel>>();
+
         public void Save()
         {
-            var entityChangingHandlers = _container.GetAllInstances<IHandleEntityChanging<TModel>>();
-            var entityChangedHandlers = _container.GetAllInstances<IHandleEntityChanged<TModel>>();
+            //TODO get this from configuration
+            var triggerEventsForStateList = new []
+            {
+                EntityState.Added,
+                EntityState.Deleted,
+                EntityState.Modified
+            };
 
-            var entries = GetContext().ChangeTracker.Entries<TModel>().ToList();
-            entries.ForEach(e => entityChangingHandlers.ForEach(h => h.OnEntityChanging(e)));
+            var entries =
+                GetContext()
+                    .ChangeTracker.Entries<TModel>()
+                    .Where(r => triggerEventsForStateList.Contains(r.State))
+                    .ToList();
+
+            TriggerEventsBeforePersisting(entries);
 
             GetContext().SaveChanges();
 
-            entries.ForEach(e => entityChangedHandlers.ForEach(h => h.OnEntityChanged(e)));
+            TriggerEventsAfterPersisting();
+        }
+
+        void TriggerEventsBeforePersisting(IEnumerable<DbEntityEntry<TModel>> entries)
+        {
+            var entityChangingHandlers = _container.GetAllInstances<IHandleEntityChanging<TModel>>();
+
+            //Trigger events for entities before persisting
+            entries.ForEach(e =>
+                entityChangingHandlers.ForEach(h =>
+                {
+                    h.OnEntityChanging(e);
+                    _postSaveEventsToTrigger.Add(new EntityChangedEvent<TModel>(e.Entity, e.State));
+                }));
+        }
+
+        void TriggerEventsAfterPersisting()
+        {
+            var entityChangedHandlers = _container.GetAllInstances<IHandleEntityChanged<TModel>>();
+
+            //Trigger events for entities after persisting
+            _postSaveEventsToTrigger.ForEach(e => entityChangedHandlers.ForEach(h => h.OnEntityChanged(e)));
         }
     }
 }
