@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -90,7 +91,16 @@ namespace Gallifrey.Persistence.Application.Persistence
 
         public TModel Find(TIdentityType id)
         {
-            return (_provider.IsFindFiltered ? GetAllFiltered() : GetAll()).SingleOrDefault(r => r.Id.Equals(id));
+            var query = (_provider.IsFindFiltered ? GetAllFiltered() : GetAll());
+
+            if (id is Guid)
+            {
+                var list = new[] {id};
+
+                return query.SingleOrDefault(r => list.Contains(r.Id));
+            }
+            
+            return query.SingleOrDefault(r => r.Id.Equals(id));
         }
 
         public void InsertOrUpdate(TModel model)

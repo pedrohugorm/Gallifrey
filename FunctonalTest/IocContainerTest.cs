@@ -66,6 +66,20 @@ namespace FunctionalTest
     public class IocContainerTest
     {
         [TestMethod]
+        public void ShouldRetrieveUsingGuid()
+        {
+            var container = new Container();
+            var configuration = new TestConfiguration(container);
+            configuration.RegisterValidationsInAssembly(Assembly.GetExecutingAssembly());
+
+            var instanceRepository = container.GetInstance<IRepository<TestModel, Guid>>();
+
+            var item = instanceRepository.Find(Guid.NewGuid());
+
+
+        }
+
+        [TestMethod]
         public void ShouldFailValidation()
         {
             var container = new Container();
@@ -137,7 +151,7 @@ namespace FunctionalTest
             instanceRepository.Save();
 
             changing.Verify(r => r.OnEntityChanging(It.IsAny<DbEntityEntry<TestModel>>()));
-            changed.Verify(r => r.OnEntityChanged(It.IsAny<DbEntityEntry<TestModel>>()));
+            changed.Verify(r => r.OnEntityChanged(It.IsAny<EntityChangedEvent<TestModel>>()));
         }
 
         [TestMethod]
