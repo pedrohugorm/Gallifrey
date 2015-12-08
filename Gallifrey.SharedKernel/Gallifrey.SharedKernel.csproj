@@ -58,8 +58,8 @@
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=3.1.6.186, Culture=neutral, processorArchitecture=MSIL">
@@ -92,6 +92,7 @@
     <Compile Include="Application\Extension\MappingExtension.cs" />
     <Compile Include="Application\Infrastructure\IPrincipalProvider.cs" />
     <Compile Include="Application\Persistence\DefaultPersistenceConfiguration.cs" />
+    <Compile Include="Application\Persistence\Repository\BaseDocumentDbDocument.cs" />
     <Compile Include="Application\Persistence\Repository\IHandleEntityChanged.cs" />
     <Compile Include="Application\Persistence\Repository\IHandleEntityChanging.cs" />
     <Compile Include="Application\Persistence\Strategy\IHandleModelFilterStrategy.cs" />
