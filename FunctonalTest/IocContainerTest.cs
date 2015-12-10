@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
@@ -27,7 +28,7 @@ namespace FunctionalTest
 
     public class HandleTestModelFilterStrategy : IHandleModelFilterStrategy<TestModel>
     {
-        public IQueryable<TestModel> HandleFilter(IQueryable<TestModel> queryable)
+        public IEnumerable<TestModel> HandleFilter(IEnumerable<TestModel> queryable)
         {
             return queryable;
         }

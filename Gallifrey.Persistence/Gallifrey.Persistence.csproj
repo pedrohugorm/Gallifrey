@@ -100,11 +100,17 @@
   <ItemGroup>
     <Compile Include="Application\Extension\EntityFrameworkExtension.cs" />
     <Compile Include="Application\Persistence\DatabaseRepository.cs" />
-    <Compile Include="Application\Persistence\NoSql\BaseDocumentDbRepositoryConfiguration.cs" />
-    <Compile Include="Application\Persistence\NoSql\DocumentDbEntry.cs" />
-    <Compile Include="Application\Persistence\NoSql\DocumentDbRepository.cs" />
-    <Compile Include="Application\Persistence\NoSql\EntryStateType.cs" />
-    <Compile Include="Application\Persistence\NoSql\IProvideDocumentDbRepositoryConfiguration.cs" />
+    <Compile Include="Application\Persistence\Document\DocumentDbRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentCollectionProvider.cs" />
+    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentDatabaseClientProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentDatabaseProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Application\Persistence\Document\Resolver\DefaultCollectionIdResolver.cs" />
     <Compile Include="Application\Strategy\DefaultRemoveItemStrategy.cs" />
     <Compile Include="Application\Strategy\DefaultAddItemStrategy.cs" />
     <Compile Include="Application\Strategy\DefaultUpdateItemStrategy.cs" />
@@ -126,6 +132,7 @@
       <Name>Gallifrey.SharedKernel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

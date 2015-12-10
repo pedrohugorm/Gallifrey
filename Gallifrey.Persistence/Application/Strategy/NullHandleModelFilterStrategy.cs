@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 
 namespace Gallifrey.Persistence.Application.Strategy
@@ -9,7 +9,7 @@ namespace Gallifrey.Persistence.Application.Strategy
     /// <typeparam name="TModel"></typeparam>
     public class NullHandleModelFilterStrategy<TModel> : IHandleModelFilterStrategy<TModel>
     {
-        public virtual IQueryable<TModel> HandleFilter(IQueryable<TModel> queryable)
+        public virtual IEnumerable<TModel> HandleFilter(IEnumerable<TModel> queryable)
         {
             return queryable;
         }

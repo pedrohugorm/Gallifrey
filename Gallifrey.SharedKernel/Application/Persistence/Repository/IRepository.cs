@@ -1,4 +1,7 @@
-﻿namespace Gallifrey.SharedKernel.Application.Persistence.Repository
+﻿using System;
+using System.Collections.Generic;
+
+namespace Gallifrey.SharedKernel.Application.Persistence.Repository
 {
     public interface IRepository
     {

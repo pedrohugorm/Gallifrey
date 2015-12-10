@@ -7,6 +7,7 @@ using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
 using StructureMap;
+using StructureMap.Configuration.DSL;
 using WebGrease.Css.Extensions;
 
 namespace Gallifrey.RestApi.Application.Configuration
@@ -41,6 +42,21 @@ namespace Gallifrey.RestApi.Application.Configuration
         public BaseConfiguration UsingDefaultCrudStrategies()
         {
             _container.Configure(x => x.AddRegistry<DefaultCrudRegistry>());
+
+            return this;
+        }
+
+        public BaseConfiguration UsingDefaultDocumentDbConfiguration(string endpointUrl, string authorizationKey)
+        {
+            _container.Configure(
+                x => x.AddRegistry(new DefaultDocumentDbRegistry().DatabaseClientForAll(endpointUrl, authorizationKey)));
+
+            return this;
+        }
+
+        public BaseConfiguration UsingCustomRegistry(Registry registry)
+        {
+            _container.Configure(x => x.AddRegistry(registry));
 
             return this;
         }

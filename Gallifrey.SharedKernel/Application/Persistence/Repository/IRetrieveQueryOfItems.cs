@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Gallifrey.SharedKernel.Application.Persistence.Repository
 {
@@ -8,6 +8,6 @@ namespace Gallifrey.SharedKernel.Application.Persistence.Repository
     /// <typeparam name="TModel"></typeparam>
     public interface IRetrieveQueryOfItems<out TModel> where TModel : class
     {
-        IQueryable<TModel> GetAll();
+        IEnumerable<TModel> GetAll();
     }
 }

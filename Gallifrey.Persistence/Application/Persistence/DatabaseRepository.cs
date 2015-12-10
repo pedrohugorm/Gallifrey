@@ -57,12 +57,12 @@ namespace Gallifrey.Persistence.Application.Persistence
             return GetContext().GetDbSet<TModel>();
         }
 
-        public virtual IQueryable<TModel> GetAll()
+        public virtual IEnumerable<TModel> GetAll()
         {
             return GetDbSet();
         }
 
-        public virtual IQueryable<TModel> GetAllFiltered()
+        public virtual IEnumerable<TModel> GetAllFiltered()
         {
             return ApplyFilterAndOrdering(GetAll());
         }
@@ -72,13 +72,14 @@ namespace Gallifrey.Persistence.Application.Persistence
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public virtual IQueryable<TModel> ApplyFilterAndOrdering(IQueryable<TModel> enumerable)
+        public virtual IEnumerable<TModel> ApplyFilterAndOrdering(IEnumerable<TModel> enumerable)
         {
             var filters = _container.GetAllInstances<IHandleModelFilterStrategy<TModel>>().ToList();
 
             if(!filters.Any())
                 return enumerable;
 
+            // ReSharper disable once PossibleMultipleEnumeration TODO - Confirm that
             var result = enumerable;
 
             foreach (var filter in filters)

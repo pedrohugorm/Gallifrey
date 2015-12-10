@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Gallifrey.SharedKernel.Application.Persistence.Strategy
 {
     public interface IHandleModelFilterStrategy<TModel>
     {
-        IQueryable<TModel> HandleFilter(IQueryable<TModel> queryable);
+        IEnumerable<TModel> HandleFilter(IEnumerable<TModel> queryable);
     }
 }

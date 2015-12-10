@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
@@ -17,11 +18,11 @@ namespace Gallifrey.SharedKernel.Application.Extension
                 Mapper.CreateMap<TTypeFrom, TTypeTo>();
         }
 
-        public static IQueryable<TTypeTo> MapEnumerableFromTo<TTypeFrom, TTypeTo>(this IQueryable<TTypeFrom> enumerable)
+        public static IEnumerable<TTypeTo> MapEnumerableFromTo<TTypeFrom, TTypeTo>(this IEnumerable<TTypeFrom> enumerable)
         {
             CreateMappingIfNonExistant<TTypeFrom, TTypeTo>();
 
-            return enumerable.Project().To<TTypeTo>();
+            return enumerable.AsQueryable().Project().To<TTypeTo>();
         }
 
         public static TTypeTo MapTo<TTypeFrom, TTypeTo>(this TTypeFrom value)
