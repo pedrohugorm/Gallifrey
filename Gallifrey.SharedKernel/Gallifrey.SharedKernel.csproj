@@ -98,27 +98,24 @@
     <Compile Include="Application\Persistence\DefaultPersistenceConfiguration.cs" />
     <Compile Include="Application\Persistence\Repository\BaseDocumentDbDocument.cs" />
     <Compile Include="Application\Persistence\Repository\Document\IDocumentRepository.cs" />
-    <Compile Include="Application\Persistence\Repository\Document\IPersistDocumentItem.cs" />
     <Compile Include="Application\Persistence\Repository\Document\IProvideDatabaseClient.cs" />
     <Compile Include="Application\Persistence\Repository\Document\IProvideDocumentCollection.cs" />
     <Compile Include="Application\Persistence\Repository\Document\IProvideDocumentDatabase.cs" />
     <Compile Include="Application\Persistence\Repository\Document\IResolveDocumentCollectionId.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Application\Persistence\Repository\Document\IRetrieveDocumentItemById.cs" />
-    <Compile Include="Application\Persistence\Repository\Document\IRetrieveDocumentItems.cs" />
     <Compile Include="Application\Persistence\Repository\IHandleEntityChanged.cs" />
     <Compile Include="Application\Persistence\Repository\IHandleEntityChanging.cs" />
+    <Compile Include="Application\Persistence\Repository\RepositoryTypeProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Application\Persistence\Strategy\IHandleModelFilterStrategy.cs" />
     <Compile Include="Application\Ioc\IConfigureContainer.cs" />
     <Compile Include="Application\Persistence\IPersistenceConfigurationProvider.cs" />
     <Compile Include="Application\Persistence\Repository\IDatabaseRepository.cs" />
     <Compile Include="Application\Persistence\Repository\IIdentity.cs" />
-    <Compile Include="Application\Persistence\Repository\IPersistItem.cs" />
     <Compile Include="Application\Persistence\Repository\IRepository.cs" />
     <Compile Include="Application\Persistence\Repository\IRepositoryFilters.cs" />
-    <Compile Include="Application\Persistence\Repository\IRetrieveItemByIdentity.cs" />
-    <Compile Include="Application\Persistence\Repository\IRetrieveQueryOfItems.cs" />
     <Compile Include="Application\Persistence\Strategy\IAddItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IRemoveItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IUpdateItemStrategy.cs" />

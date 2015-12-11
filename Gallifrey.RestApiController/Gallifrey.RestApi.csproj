@@ -162,6 +162,7 @@
     <Compile Include="Application\Domain\Model\IResponse.cs" />
     <Compile Include="Application\Domain\Model\OperationResponse.cs" />
     <Compile Include="Application\Domain\Model\ResponseContainer.cs" />
+    <Compile Include="Application\Service\DefaultService.cs" />
     <Compile Include="Application\Validation\ModelStateValidationHelper.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">

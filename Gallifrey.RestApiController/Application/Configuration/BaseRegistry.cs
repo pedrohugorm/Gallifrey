@@ -16,9 +16,6 @@ namespace Gallifrey.RestApi.Application.Configuration
                 s.WithDefaultConventions();
                 s.TheCallingAssembly();
                 s.RegisterConcreteTypesAgainstTheFirstInterface();
-                s.AddAllTypesOf(typeof (IPersistItem<,>));
-                s.AddAllTypesOf(typeof (IRetrieveItemByIdentity<,>));
-                s.AddAllTypesOf(typeof (IRetrieveQueryOfItems<>));
                 s.AddAllTypesOf(typeof (IRepository<,>));
                 s.AddAllTypesOf(typeof (IDatabaseRepository<,>));
                 s.AddAllTypesOf(typeof (IIdentity<>));

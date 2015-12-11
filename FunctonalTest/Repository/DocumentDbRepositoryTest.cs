@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using FunctionalTest.Domain;
 using Gallifrey.RestApi.Application.Configuration;
+using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Repository.Document;
 using Microsoft.Azure.Documents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +13,7 @@ using StructureMap;
 namespace FunctionalTest.Repository
 {
     [TestClass]
-    public class DocumentDbRepositoryTest   
+    public class DocumentDbRepositoryTest
     {
         [TestInitialize]
         public void Init()
@@ -32,7 +34,7 @@ namespace FunctionalTest.Repository
             }
         }
 
-        IDocumentRepository<SpecialDeal> GetRepository()
+        IContainer GetContainer()
         {
             var container = new Container();
             var config = new DefaultConfiguration(container);
@@ -44,7 +46,21 @@ namespace FunctionalTest.Repository
                     .DatabaseIdFor<SpecialDeal>("mealbooking")
                 );
 
-            return container.GetInstance<IDocumentRepository<SpecialDeal>>();
+            return container;
+        }
+
+        IDocumentRepository<SpecialDeal> GetRepository()
+        {
+            return GetContainer().GetInstance<IDocumentRepository<SpecialDeal>>();
+        }
+
+        [TestMethod]
+        public void ShouldGetGenericRepository()
+        {
+            var resolver = new RepositoryTypeProvider();
+            var repoType = resolver.GetRepository<TestModel>();
+
+            Assert.IsTrue(typeof (IDatabaseRepository<TestModel, Guid>) == repoType);
         }
             
         [TestMethod]
