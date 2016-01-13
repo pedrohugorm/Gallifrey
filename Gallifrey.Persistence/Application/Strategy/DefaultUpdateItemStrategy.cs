@@ -16,7 +16,7 @@ namespace Gallifrey.Persistence.Application.Strategy
     {
         public virtual void UpdateItem(DbSet<TModel> dbSet, TModel model)
         {
-            var originalModel = dbSet.SingleOrDefault(r => r.Id.Equals(model.Id));
+            var originalModel = dbSet.Find(model.Id);
 
             //TODO a way to extend this
             originalModel.InjectFrom(model);
