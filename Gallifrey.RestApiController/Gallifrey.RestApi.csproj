@@ -67,10 +67,6 @@
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.5.1\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -154,9 +150,6 @@
     <Compile Include="Application\Configuration\DefaultConfiguration.cs" />
     <Compile Include="Application\Configuration\DefaultCrudRegistry.cs" />
     <Compile Include="Application\Configuration\DefaultDatabaseRegistry.cs" />
-    <Compile Include="Application\Configuration\DefaultDocumentDbRegistry.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Application\Controller\AbstractMappedRestApiController.cs" />
     <Compile Include="Application\Controller\AbstractRestApiController.cs" />
     <Compile Include="Application\Domain\Model\IResponse.cs" />

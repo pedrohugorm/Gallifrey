@@ -46,14 +46,6 @@ namespace Gallifrey.RestApi.Application.Configuration
             return this;
         }
 
-        public BaseConfiguration UsingDefaultDocumentDbConfiguration(string endpointUrl, string authorizationKey)
-        {
-            _container.Configure(
-                x => x.AddRegistry(new DefaultDocumentDbRegistry().DatabaseClientForAll(endpointUrl, authorizationKey)));
-
-            return this;
-        }
-
         public BaseConfiguration UsingCustomRegistry(Registry registry)
         {
             _container.Configure(x => x.AddRegistry(registry));

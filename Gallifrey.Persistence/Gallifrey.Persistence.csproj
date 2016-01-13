@@ -54,10 +54,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.5.1\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -100,17 +96,6 @@
   <ItemGroup>
     <Compile Include="Application\Extension\EntityFrameworkExtension.cs" />
     <Compile Include="Application\Persistence\DatabaseRepository.cs" />
-    <Compile Include="Application\Persistence\Document\DocumentDbRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentCollectionProvider.cs" />
-    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentDatabaseClientProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Application\Persistence\Document\Provider\DefaultDocumentDatabaseProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Application\Persistence\Document\Resolver\DefaultCollectionIdResolver.cs" />
     <Compile Include="Application\Strategy\DefaultRemoveItemStrategy.cs" />
     <Compile Include="Application\Strategy\DefaultAddItemStrategy.cs" />
     <Compile Include="Application\Strategy\DefaultUpdateItemStrategy.cs" />
