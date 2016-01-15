@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Gallifrey.Persistence.Application.Extension;
+using Gallifrey.SharedKernel.Application.Diagnostic;
 using Gallifrey.SharedKernel.Application.Persistence;
 using Gallifrey.SharedKernel.Application.Persistence.Repository;
 using Gallifrey.SharedKernel.Application.Persistence.Strategy;
@@ -31,13 +32,15 @@ namespace Gallifrey.Persistence.Application.Persistence
         private readonly IAddItemStrategy<TModel, TIdentityType> _addItemStrategy;
         private readonly IUpdateItemStrategy<TModel, TIdentityType> _updateItemStrategy;
         private readonly IRemoveItemStrategy<TModel, TIdentityType> _removeItemStrategy;
+        private readonly ILogWriter _logWriter;
 
         public DatabaseRepository(DbContext context,
             IPersistenceConfigurationProvider provider,
             IContainer container, 
             IAddItemStrategy<TModel, TIdentityType> addItemStrategy,
             IUpdateItemStrategy<TModel, TIdentityType> updateItemStrategy,
-            IRemoveItemStrategy<TModel, TIdentityType> removeItemStrategy)
+            IRemoveItemStrategy<TModel, TIdentityType> removeItemStrategy,
+            ILogWriter logWriter)
         {
             _context = context;
             _provider = provider;
@@ -45,6 +48,7 @@ namespace Gallifrey.Persistence.Application.Persistence
             _addItemStrategy = addItemStrategy;
             _updateItemStrategy = updateItemStrategy;
             _removeItemStrategy = removeItemStrategy;
+            _logWriter = logWriter;
         }
 
         public virtual DbContext GetContext()
@@ -106,7 +110,16 @@ namespace Gallifrey.Persistence.Application.Persistence
 
         public void InsertOrUpdate(TModel model)
         {
-            if ((model.Id is int && (model.Id as int? == 0))
+            _logWriter.Write(
+                string.Format("Insert/Update, Value = {0} | Check => IsInt = {1}, {2} | IsGuid = {3}, {4}",
+                    model.Id,
+                    model.Id is int,
+                    model.Id as int?,
+                    model.Id is Guid,
+                    model.Id as Guid?
+                    ));
+
+            if ((model.Id is int && (model.Id as int? == 0)) 
                 || (model.Id is Guid && (model.Id as Guid? == Guid.Empty)))
                 _addItemStrategy.AddItem(GetDbSet(), model);
             else

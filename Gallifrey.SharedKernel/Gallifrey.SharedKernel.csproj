@@ -87,9 +87,16 @@
     <Compile Include="Application\Configuration\IGallifreyConfiguration.cs" />
     <Compile Include="Application\Configuration\IGallifreyContainer.cs" />
     <Compile Include="Application\Configuration\IRegisterMapping.cs" />
+    <Compile Include="Application\Diagnostic\ILogAdapter.cs" />
+    <Compile Include="Application\Diagnostic\ILogWriter.cs" />
+    <Compile Include="Application\Diagnostic\LogService.cs" />
+    <Compile Include="Application\Diagnostic\Severity.cs" />
     <Compile Include="Application\Exception\MoreThanOneFoundInContainerException.cs" />
     <Compile Include="Application\Exception\TypeNotFoundInContainerException.cs" />
+    <Compile Include="Application\Extension\ExceptionExtension.cs" />
     <Compile Include="Application\Extension\MappingExtension.cs" />
+    <Compile Include="Application\Extension\SimpleExceptionDetail.cs" />
+    <Compile Include="Application\Extension\SimpleStacktraceDetail.cs" />
     <Compile Include="Application\Infrastructure\IPrincipalProvider.cs" />
     <Compile Include="Application\Persistence\DefaultPersistenceConfiguration.cs" />
     <Compile Include="Application\Persistence\Repository\BaseDocumentDbDocument.cs" />
@@ -105,6 +112,9 @@
     <Compile Include="Application\Persistence\Strategy\IAddItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IRemoveItemStrategy.cs" />
     <Compile Include="Application\Persistence\Strategy\IUpdateItemStrategy.cs" />
+    <Compile Include="Application\Serialization\IDeserializeObject.cs" />
+    <Compile Include="Application\Serialization\ISerializeObject.cs" />
+    <Compile Include="Application\Serialization\JsonSerializer.cs" />
     <Compile Include="Application\Validation\IValidationHelper.cs" />
     <Compile Include="Application\Validation\ValidationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
