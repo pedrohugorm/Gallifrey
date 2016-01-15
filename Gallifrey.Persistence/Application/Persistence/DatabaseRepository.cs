@@ -106,7 +106,8 @@ namespace Gallifrey.Persistence.Application.Persistence
 
         public void InsertOrUpdate(TModel model)
         {
-            if (model.Id.Equals(default(TIdentityType)))
+            if ((model.Id is int && (model.Id as int? == 0))
+                || (model.Id is Guid && (model.Id as Guid? == Guid.Empty)))
                 _addItemStrategy.AddItem(GetDbSet(), model);
             else
                 _updateItemStrategy.UpdateItem(GetDbSet(), model);
